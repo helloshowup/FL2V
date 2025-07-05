@@ -7,7 +7,7 @@ import moviepy.editor as mpy
 class VideoStitcher:
     """Stitch interpolated clips into a final video."""
 
-    def __init__(self, codec: str = "mp4v"):
+    def __init__(self, codec: str = "libx264"):
         self.codec = codec
 
     def stitch(self, clips: List[List], output_path: str, frame_rate: int) -> str:

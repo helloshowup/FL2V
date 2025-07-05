@@ -11,7 +11,7 @@ class TestConfigAgent(unittest.TestCase):
         cfg = ConfigAgent()
         self.assertEqual(cfg.get_output_path(), "output.mp4")
         self.assertEqual(cfg.get_frame_rate(), 24)
-        self.assertEqual(cfg.get_video_codec(), "mp4v")
+        self.assertEqual(cfg.get_video_codec(), "libx264")
 
     def test_config_file_override(self):
         with tempfile.TemporaryDirectory() as tmpdir:

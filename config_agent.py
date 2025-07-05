@@ -8,7 +8,7 @@ class ConfigAgent:
     DEFAULTS = {
         "output_path": "output.mp4",
         "frame_rate": 24,
-        "video_codec": "mp4v",
+        "video_codec": "libx264",
     }
 
     def __init__(self, config_path: str | None = None, overrides: dict | None = None):

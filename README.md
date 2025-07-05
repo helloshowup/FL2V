@@ -59,12 +59,13 @@ Preview the 5-second video.
 Save to a custom path (default: sample_output.mp4).
 
 Sample Keyframes
-Put three PNG/JPG images (start, midpoint, end of a movement) into sample_images/. The app expects exactly three files.
+Provide exactly three PNG images sized 1024x1024 pixels (start, midpoint and end frames) in the `sample_images/` folder. The loader rejects images that are not PNG or not 1024x1024.
 
 Output
 Default: sample_output.mp4
 
-~5 seconds at 24 fps (configurable via --frame_rate or GUI settings)
+~5 seconds at 24 fps (configurable via --frame_rate or GUI settings).
+The output video always has a 1:1 aspect ratio.
 
 Codec and output path can be changed in config.ini or via CLI flags.
 

@@ -30,6 +30,16 @@ class TestVideoStitcher(unittest.TestCase):
             stitcher.stitch(clips, out, frame_rate=2)
             self.assertTrue(os.path.exists(out))
 
+    def test_non_square_frames_raise(self):
+        if not MOVIEPY_AVAILABLE:
+            self.skipTest("moviepy not available")
+        bad_clip = [np.zeros((8, 4, 3), dtype=np.uint8) for _ in range(2)]
+        stitcher = VideoStitcher()
+        with tempfile.TemporaryDirectory() as tmpdir:
+            out = os.path.join(tmpdir, "out.mp4")
+            with self.assertRaises(ValueError):
+                stitcher.stitch([bad_clip], out, frame_rate=2)
+
 
 if __name__ == "__main__":
     unittest.main()

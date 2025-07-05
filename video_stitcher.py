@@ -6,7 +6,6 @@ try:
 except Exception:  # pragma: no cover - fallback for newer MoviePy versions
     import moviepy as mpy
 
-
 class VideoStitcher:
     """Stitch interpolated clips into a final video."""
 
@@ -38,14 +37,21 @@ class VideoStitcher:
         for idx, frames in enumerate(clips):
             if not frames:
                 continue
-            logging.info("Creating subclip %d with %d frames", idx + 1, len(frames))
-            subclip = mpy.ImageSequenceClip(frames, fps=frame_rate)
+            h, w = frames[0].shape[:2]
+            if h != w:
+                raise ValueError(
+                    f"Clip {idx + 1} is not square: {w}x{h}. Aspect ratio must be 1:1"
+                )
+            logging.info(
+                "Creating subclip %d with %d frames", idx + 1, len(frames)
+            )
+            subclip = ImageSequenceClip(frames, fps=frame_rate)
             video_clips.append(subclip)
 
         if not video_clips:
             raise ValueError("All provided clips were empty")
 
-        final = mpy.concatenate_videoclips(video_clips)
+        final = concatenate_videoclips(video_clips)
         logging.info("Writing output video to %s", output_path)
         final.write_videofile(output_path, codec=self.codec, fps=frame_rate, audio=False)
         logging.info("Video written successfully")

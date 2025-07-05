@@ -23,23 +23,25 @@ python -m venv venv
 venv\Scripts\activate
 Install dependencies:
 
-bash
-Copy
-Edit
+```
 pip install -r requirements.txt
 git clone https://github.com/Wan-Video/Wan2.1.git
-pip install -r Wan2.1\requirements.txt
+# Install PyTorch first (replace cu118 with your CUDA version)
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+# Install Wan2.1 requirements after PyTorch so flash-attn can build
+pip install --find-links deps --no-build-isolation -r Wan2.1\requirements.txt
 pip install -e Wan2.1
+```
 # The Wan2.1 directory is git-ignored so cloned files won't be committed
 Alternatively, run the bundled script:
 
-bat
-Copy
-Edit
+```
 run.bat
-That creates the venv, installs requirements and launches the GUI.
-It also clones the Wan2.1 repository and installs its requirements so the local
-`wan` module is available.
+```
+That creates the venv, installs requirements (including PyTorch and flash-attn)
+and launches the GUI. It also clones the Wan2.1 repository so the local `wan`
+module is available. The script checks the `deps` folder for PyTorch or
+flash-attn wheels using `--find-links` before downloading from PyPI.
 If any command fails the batch script will now pause so you can
 read the error message before the window closes.
 

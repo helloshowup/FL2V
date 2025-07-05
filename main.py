@@ -10,7 +10,7 @@ def main():
         overrides={
             "output_path": "sample_output.mp4",
             "frame_rate": 24,
-            "video_codec": "mp4v",
+            "video_codec": "libx264",
         }
     )
     gui = GUIController(cfg)

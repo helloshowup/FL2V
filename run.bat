@@ -8,5 +8,6 @@ python main.py || goto :error
 exit /b 0
 
 :error
-echo launch terminal > error.log
+echo Launch failed. See above for details. > error.log
+pause
 exit /b 1

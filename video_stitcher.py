@@ -1,8 +1,10 @@
 import logging
 from typing import List
 
-from moviepy import ImageSequenceClip, concatenate_videoclips
-
+try:
+    import moviepy.editor as mpy  # MoviePy <2.2.0
+except Exception:  # pragma: no cover - fallback for newer MoviePy versions
+    import moviepy as mpy
 
 class VideoStitcher:
     """Stitch interpolated clips into a final video."""

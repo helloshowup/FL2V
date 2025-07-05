@@ -1,0 +1,17 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.env/
+.venv/
+
+# Output files
+*.mp4
+error.log
+
+# IDE files
+.vscode/
+.idea/

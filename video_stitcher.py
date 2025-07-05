@@ -3,8 +3,12 @@ from typing import List
 
 try:
     import moviepy.editor as mpy  # MoviePy <2.2.0
+    ImageSequenceClip = mpy.ImageSequenceClip
+    concatenate_videoclips = mpy.concatenate_videoclips
 except Exception:  # pragma: no cover - fallback for newer MoviePy versions
     import moviepy as mpy
+    ImageSequenceClip = mpy.ImageSequenceClip
+    concatenate_videoclips = mpy.concatenate_videoclips
 
 class VideoStitcher:
     """Stitch interpolated clips into a final video."""

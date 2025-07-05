@@ -2,6 +2,9 @@
 
 python -m venv venv || goto :error
 call venv\Scripts\activate || goto :error
+if not exist Wan2.1 (git clone https://github.com/Wan-Video/Wan2.1.git) || goto :error
+pip install -r Wan2.1\requirements.txt || goto :error
+pip install -e Wan2.1 || goto :error
 pip install -r requirements.txt || goto :error
 python main.py || goto :error
 

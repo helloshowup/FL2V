@@ -1,4 +1,3 @@
 opencv-python
 moviepy
 numpy
-wan

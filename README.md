@@ -34,6 +34,8 @@ Copy
 Edit
 run.bat
 That creates the venv, installs requirements and launches the GUI.
+It also clones the Wan2.1 repository and installs its requirements so the local
+`wan` module is available.
 If any command fails the batch script will now pause so you can
 read the error message before the window closes.
 

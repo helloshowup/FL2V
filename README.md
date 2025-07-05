@@ -27,6 +27,9 @@ bash
 Copy
 Edit
 pip install -r requirements.txt
+git clone https://github.com/Wan-Video/Wan2.1.git
+pip install -r Wan2.1\requirements.txt
+pip install -e Wan2.1
 Alternatively, run the bundled script:
 
 bat
@@ -34,6 +37,8 @@ Copy
 Edit
 run.bat
 That creates the venv, installs requirements and launches the GUI.
+It also clones the Wan2.1 repository and installs its requirements so the local
+`wan` module is available.
 If any command fails the batch script will now pause so you can
 read the error message before the window closes.
 

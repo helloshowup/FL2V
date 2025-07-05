@@ -6,11 +6,6 @@ call venv\Scripts\activate || goto :error
 :: Clone Wan2.1 if it isn't already present
 if not exist Wan2.1 (git clone https://github.com/Wan-Video/Wan2.1.git) || goto :error
 
-:: Install Wan2.1 and project requirements
-pip install -r Wan2.1\requirements.txt || goto :error
-pip install -e Wan2.1 || goto :error
-pip install -r requirements.txt || goto :error
-
 :: ---- PyTorch and flash-attn ----
 :: Install PyTorch from local wheels if available, otherwise use the official index
 if exist deps\torch*.whl (
@@ -25,6 +20,11 @@ if exist deps\flash_attn*.whl (
 ) else (
     pip install flash-attn --no-build-isolation || goto :error
 )
+
+:: Install Wan2.1 and project requirements after PyTorch so flash-attn can build
+pip install --find-links deps --no-build-isolation -r Wan2.1\requirements.txt || goto :error
+pip install -e Wan2.1 || goto :error
+pip install -r requirements.txt || goto :error
 
 python main.py || goto :error
 

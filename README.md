@@ -103,5 +103,6 @@ python -m unittest discover -s tests -v
 ```
 
 The tests require OpenCV, NumPy and MoviePy.
+The code fails fast: errors raise exceptions rather than being ignored.
 
 Keep it simple. No fluff.

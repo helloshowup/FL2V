@@ -28,3 +28,7 @@ Responsibility: Parse and apply configuration options:
 - **output_path**: Path to save the generated video file.
 - **frame_rate**: Frames per second for the output video.
 - **video_codec**: Codec used for encoding the video (e.g., `mp4v`).
+
+## Fail Fast
+All modules should raise clear exceptions on error conditions. Do not
+silently continue when something goes wrong.

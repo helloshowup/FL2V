@@ -1,34 +1,102 @@
 # FLF2V Demo Video Generator
 
-This project is for personal, local use on Windows 11 and is **not** intended for production scale.
+Generate a 5-second demo video from three key-frame images using the Wan 2.1 FLF2V model on Windows 11. For personal experimentation only—**not** production scale.
 
-## Project Overview
-Generate 5-second demo videos from three key frames using the Wan2.1 FLF2V model on Windows 11.
+## Prerequisites
+
+- Windows 11
+- Python 3.10 or later
+- Git (optional)
 
 ## Installation
-- Python 3.8+
-- pip
 
-```bash
-pip install wan moviepy tkinter
-```
+1. Clone or download the repo:
+   ```bash
+   git clone https://github.com/your-username/FLF2V.git
+   cd FLF2V
+Create and activate a virtual environment:
 
-## Usage
-Run from the command line:
+bash
+Copy
+Edit
+python -m venv venv
+venv\Scripts\activate
+Install dependencies:
 
-```bash
+bash
+Copy
+Edit
+pip install -r requirements.txt
+Alternatively, run the bundled script:
+
+bat
+Copy
+Edit
+run.bat
+That creates the venv, installs requirements and launches the GUI.
+
+Usage
+Command-Line
+bash
+Copy
+Edit
 python main.py --frames frame1.png frame2.png frame3.png
-```
+GUI
+Run:
 
-Minimal Tkinter GUI workflow:
-1. Select three key frame images.
-2. Trigger generation.
-3. Preview the output video.
-4. Save the result.
+bash
+Copy
+Edit
+python main.py
+In the Tkinter window:
 
-## Agents
-- **FrameLoader**: Load and validate exactly three keyframe image files.
-- **FLF2VInterpolator**: Use the Wan2.1 FLF2V model to interpolate video segments.
-- **VideoStitcher**: Stitch segments into a single video using MoviePy.
-- **GUIController**: Provide a minimal Tkinter GUI for input selection and output preview.
-- **ConfigAgent**: Parse and apply `output_path`, `frame_rate`, and `video_codec`.
+Select exactly three key-frame images.
+
+Click Generate.
+
+Preview the 5-second video.
+
+Save to a custom path (default: sample_output.mp4).
+
+Sample Keyframes
+Put three PNG/JPG images (start, midpoint, end of a movement) into sample_images/. The app expects exactly three files.
+
+Output
+Default: sample_output.mp4
+
+~5 seconds at 24 fps (configurable via --frame_rate or GUI settings)
+
+Codec and output path can be changed in config.ini or via CLI flags.
+
+Configuration
+Option	CLI flag	Default
+Output path	--output_path PATH	sample_output.mp4
+Frame rate	--frame_rate FPS	24
+Video codec	--video_codec CODEC	libx264
+
+Components
+FrameLoader
+Load and validate exactly three key-frame images.
+
+FLF2VInterpolator
+Interpolate frames with the Wan 2.1 FLF2V model.
+
+VideoStitcher
+Stitch interpolated frames into a video using MoviePy.
+
+GUIController
+Minimal Tkinter interface for file selection and preview.
+
+ConfigAgent
+Parse and apply output path, frame rate and codec settings.
+
+Tests
+Unit tests cover FrameLoader and VideoStitcher. Run:
+
+bash
+Copy
+Edit
+python -m unittest discover -s tests -v
+Tests require OpenCV, NumPy and MoviePy.
+
+Keep it simple. No fluff.

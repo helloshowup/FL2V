@@ -30,6 +30,7 @@ pip install -r requirements.txt
 git clone https://github.com/Wan-Video/Wan2.1.git
 pip install -r Wan2.1\requirements.txt
 pip install -e Wan2.1
+# The Wan2.1 directory is git-ignored so cloned files won't be committed
 Alternatively, run the bundled script:
 
 bat

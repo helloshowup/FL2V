@@ -1,7 +1,10 @@
 import logging
 from typing import List
 
-import moviepy.editor as mpy
+try:
+    import moviepy.editor as mpy  # MoviePy <2.2.0
+except Exception:  # pragma: no cover - fallback for newer MoviePy versions
+    import moviepy as mpy
 
 
 class VideoStitcher:

@@ -34,6 +34,8 @@ Copy
 Edit
 run.bat
 That creates the venv, installs requirements and launches the GUI.
+If any command fails the batch script will now pause so you can
+read the error message before the window closes.
 
 Usage
 Command-Line

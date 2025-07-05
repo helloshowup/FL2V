@@ -1,35 +1,102 @@
-# FL2V
+# FLF2V Demo Video Generator
 
-This project demonstrates a simple First-Last-Frame-to-Video (FLF2V) workflow using the Wan 2.1 model. It is intended for personal experimentation on Windows 11.
+Generate a 5-second demo video from three key-frame images using the Wan 2.1 FLF2V model on Windows 11. For personal experimentation only—**not** production scale.
 
-## Setup
+## Prerequisites
 
-1. Ensure Python 3.10 or later is installed.
-2. Run `run.bat` to create a virtual environment, install dependencies from `requirements.txt`, and launch the GUI.
+- Windows 11
+- Python 3.10 or later
+- Git (optional)
 
-Alternatively, perform the steps manually:
+## Installation
 
-```bat
+1. Clone or download the repo:
+   ```bash
+   git clone https://github.com/your-username/FLF2V.git
+   cd FLF2V
+Create and activate a virtual environment:
+
+bash
+Copy
+Edit
 python -m venv venv
 venv\Scripts\activate
+Install dependencies:
+
+bash
+Copy
+Edit
 pip install -r requirements.txt
+Alternatively, run the bundled script:
+
+bat
+Copy
+Edit
+run.bat
+That creates the venv, installs requirements and launches the GUI.
+
+Usage
+Command-Line
+bash
+Copy
+Edit
+python main.py --frames frame1.png frame2.png frame3.png
+GUI
+Run:
+
+bash
+Copy
+Edit
 python main.py
-```
+In the Tkinter window:
 
-## Sample Keyframes
+Select exactly three key-frame images.
 
-Place or create three images illustrating a simple physical-education movement (for example, start, midpoint and end of a sit-up) in the folder `sample_images/`. The program expects exactly three images.
+Click Generate.
 
-## Running
+Preview the 5-second video.
 
-Execute `python main.py` (or use `run.bat`). Select the three images when prompted. The application generates a roughly 5‑second video saved to `sample_output.mp4` by default. Open the output file to confirm it plays correctly.
+Save to a custom path (default: sample_output.mp4).
 
-## Tests
+Sample Keyframes
+Put three PNG/JPG images (start, midpoint, end of a movement) into sample_images/. The app expects exactly three files.
 
-Unit tests cover the `FrameLoader` and `VideoStitcher` components. Run them with:
+Output
+Default: sample_output.mp4
 
-```bash
+~5 seconds at 24 fps (configurable via --frame_rate or GUI settings)
+
+Codec and output path can be changed in config.ini or via CLI flags.
+
+Configuration
+Option	CLI flag	Default
+Output path	--output_path PATH	sample_output.mp4
+Frame rate	--frame_rate FPS	24
+Video codec	--video_codec CODEC	libx264
+
+Components
+FrameLoader
+Load and validate exactly three key-frame images.
+
+FLF2VInterpolator
+Interpolate frames with the Wan 2.1 FLF2V model.
+
+VideoStitcher
+Stitch interpolated frames into a video using MoviePy.
+
+GUIController
+Minimal Tkinter interface for file selection and preview.
+
+ConfigAgent
+Parse and apply output path, frame rate and codec settings.
+
+Tests
+Unit tests cover FrameLoader and VideoStitcher. Run:
+
+bash
+Copy
+Edit
 python -m unittest discover -s tests -v
-```
+Tests require OpenCV, NumPy and MoviePy.
 
-The tests may fail if OpenCV, NumPy or MoviePy are not installed.
+Keep it simple. No fluff.

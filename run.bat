@@ -14,6 +14,13 @@ if exist deps\torch*.whl (
     pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 || goto :error
 )
 
+:: Install flash-attn after PyTorch. Use local wheel if provided
+if exist deps\flash_attn*.whl (
+    pip install deps\flash_attn*.whl || goto :error
+) else (
+    pip install flash-attn --no-build-isolation || goto :error
+)
+
 :: Install Wan2.1 and project requirements after PyTorch so flash-attn can build
 pip install --find-links deps --no-build-isolation -r Wan2.1\requirements.txt || goto :error
 pip install -e Wan2.1 || goto :error

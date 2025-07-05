@@ -93,13 +93,15 @@ Minimal Tkinter interface for file selection and preview.
 ConfigAgent
 Parse and apply output path, frame rate and codec settings.
 
-Tests
-Unit tests cover FrameLoader and VideoStitcher. Run:
 
-bash
-Copy
-Edit
+## Tests
+
+Run the unit tests with:
+
+```bash
 python -m unittest discover -s tests -v
-Tests require OpenCV, NumPy and MoviePy.
+```
+
+The tests require OpenCV, NumPy and MoviePy.
 
 Keep it simple. No fluff.

@@ -78,23 +78,3 @@ Interpolate frames with the Wan 2.1 FLF2V model.
 
 VideoStitcher
 Stitch interpolated frames into a video using MoviePy.
-
-GUIController
-Minimal Tkinter interface for file selection and preview.
-
-ConfigAgent
-Parse and apply output path, frame rate and codec settings.
-
-
-## Tests
-
-Run the unit tests with:
-
-```bash
-python -m unittest discover -s tests -v
-```
-
-The tests require OpenCV, NumPy and MoviePy.
-The code fails fast: errors raise exceptions rather than being ignored.
-
-Keep it simple. No fluff.

@@ -74,3 +74,56 @@ Interpolate frames with the Wan 2.1 FLF2V model.
 
 VideoStitcher
 Stitch interpolated frames into a video using MoviePy.
+## Installation Troubleshooting
+
+Below is a running list of issues we've encountered when building or running PyTorch and CUDA-enabled extensions on Windows using PowerShell. Add new items as needed.
+
+1. **CUDA version mismatch**  
+   **Symptom:**
+   ```
+   RuntimeError: The detected CUDA version (12.9) mismatches the version that was used to compile PyTorch (11.8).
+   ```
+   **Fix:** Ensure the PyTorch wheel matches your installed CUDA Toolkit or rebuild PyTorch against the desired CUDA version.
+
+2. **Missing Python YAML module**  
+   **Symptom:**
+   ```
+   ModuleNotFoundError: No module named 'yaml'
+   ```
+   **Fix:**
+   ```powershell
+   pip install pyyaml
+   ```
+
+3. **Ninja build-backend not found**  
+   **Symptom:**
+   ```
+   UserWarning: Attempted to use ninja as the BuildExtension backend but we could not find ninja.
+   ```
+   **Fix:**
+   ```powershell
+   pip install ninja
+   ```
+
+4. **CMake not available in venv**  
+   **Symptom:**
+   ```
+   FileNotFoundError: [WinError 2] The system cannot find the file specified
+   ```
+   when CMake tries to invoke `ninja`.
+   **Fix:**
+   ```powershell
+   pip install cmake
+   ```
+
+5. **Stale CMake cache or corrupted build folder**  
+   **Symptom:** CMake repeatedly sees an old `CMakeCache.txt` referencing a missing `ninja.exe`.
+   **Fix:**
+   ```powershell
+   Remove-Item -Recurse -Force .\build
+   ```
+   Then rebuild:
+   ```powershell
+   pip install -e . --no-build-isolation
+   ```
+

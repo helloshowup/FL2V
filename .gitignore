@@ -18,3 +18,8 @@ error.log
 
 # Wan2.1 model
 Wan2.1/
+
+# Ignore local PyTorch wheels so they aren't committed
+deps/torch*.whl
+deps/torchaudio*.whl
+deps/torchvision*.whl

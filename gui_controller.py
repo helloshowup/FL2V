@@ -31,7 +31,10 @@ class GUIController:
         tk.Label(self.root, textvariable=self.status_var).pack(pady=5)
 
     def select_files(self):
-        paths = filedialog.askopenfilenames(title="Select exactly 3 keyframes", filetypes=[("Image files", "*.png;*.jpg;*.jpeg;*.bmp")])
+        paths = filedialog.askopenfilenames(
+            title="Select exactly 3 keyframes",
+            filetypes=[("PNG images", "*.png")],
+        )
         if len(paths) != 3:
             messagebox.showerror("Error", "Please select exactly three images")
             return

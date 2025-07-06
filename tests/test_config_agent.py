@@ -1,7 +1,10 @@
 import json
 import os
+import sys
 import tempfile
 import unittest
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from config_agent import ConfigAgent
 
@@ -9,7 +12,7 @@ from config_agent import ConfigAgent
 class TestConfigAgent(unittest.TestCase):
     def test_defaults(self):
         cfg = ConfigAgent()
-        self.assertEqual(cfg.get_output_path(), "output.mp4")
+        self.assertEqual(cfg.get_output_path(), "sample_output.mp4")
         self.assertEqual(cfg.get_frame_rate(), 24)
         self.assertEqual(cfg.get_video_codec(), "libx264")
 

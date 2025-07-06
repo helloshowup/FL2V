@@ -16,7 +16,8 @@ COPY requirements.txt /workspace/requirements.txt
 RUN pip install --upgrade pip \
  && pip install --extra-index-url https://download.pytorch.org/whl/cu118 \
       torch==2.7.1+cu118 torchvision==0.15.2+cu118 torchaudio==2.7.2+cu118 \
- && pip install -r requirements.txt
+ && pip install -r requirements.txt \
+ && pip install flash-attn --no-build-isolation
 
 # 4) Clone & install Wan2.1
 RUN git clone https://github.com/Wan-Video/Wan2.1.git

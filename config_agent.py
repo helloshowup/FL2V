@@ -6,7 +6,7 @@ class ConfigAgent:
     """Parse configuration options for the FLF2V workflow."""
 
     DEFAULTS = {
-        "output_path": "sample_output.mp4",
+        "output_path": "/workspace/out/sample_output.mp4",
         "frame_rate": 24,
         "video_codec": "libx264",
     }

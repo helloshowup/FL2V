@@ -12,7 +12,7 @@ from config_agent import ConfigAgent
 class TestConfigAgent(unittest.TestCase):
     def test_defaults(self):
         cfg = ConfigAgent()
-        self.assertEqual(cfg.get_output_path(), "sample_output.mp4")
+        self.assertEqual(cfg.get_output_path(), "/workspace/out/sample_output.mp4")
         self.assertEqual(cfg.get_frame_rate(), 24)
         self.assertEqual(cfg.get_video_codec(), "libx264")
 

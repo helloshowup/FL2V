@@ -36,11 +36,6 @@ Generate a 5-second demo video from three key-frame images using the Wan 2.1 FLF
 
 ## Usage
 
-### Command-Line
-```bash
-python main.py --frames frame1.png frame2.png frame3.png
-```
-
 ### GUI
 ```bash
 python main.py

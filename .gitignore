@@ -23,3 +23,6 @@ Wan2.1/
 deps/torch*.whl
 deps/torchaudio*.whl
 deps/torchvision*.whl
+.vs/FL2V/FileContentIndex/3dd54aa4-2625-412f-b202-a52dc8b6af9e.vsidx
+/.vs/FL2V/FileContentIndex
+/.vs/FL2V/v17

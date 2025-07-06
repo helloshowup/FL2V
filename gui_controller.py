@@ -1,4 +1,6 @@
 import os
+import sys
+import subprocess
 import tkinter as tk
 from tkinter import filedialog, messagebox
 
@@ -70,7 +72,12 @@ class GUIController:
         path = self.config.get_output_path()
         if os.path.exists(path):
             try:
-                os.startfile(path)  # type: ignore[attr-defined]
+                if os.name == "nt":
+                    os.startfile(path)  # type: ignore[attr-defined]
+                elif sys.platform == "darwin":
+                    subprocess.run(["open", path], check=False)
+                else:
+                    subprocess.run(["xdg-open", path], check=False)
             except Exception as exc:
                 messagebox.showerror("Error", str(exc))
         else:

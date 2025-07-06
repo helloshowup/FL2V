@@ -7,6 +7,8 @@ Generate a 5-second demo video from three key-frame images using the Wan 2.1 FLF
 - Windows 11
 - Python 3.10 or later
 - Git (optional)
+- NVIDIA GPU with compute capability 6.1 (e.g., GTX 1080 Ti)
+  - Use the stable CUDA 11.8 wheels (PyTorch 2.7.1+cu118) since cu12.9 wheels do not include this architecture.
 
 ## Installation
 
@@ -21,8 +23,8 @@ Generate a 5-second demo video from three key-frame images using the Wan 2.1 FLF
    ```bash
    pip install -r requirements.txt
    git clone https://github.com/Wan-Video/Wan2.1.git
-   # Install PyTorch first (replace cu118 with your CUDA version)
-   pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+   # Install PyTorch first (stable CUDA 11.8 wheels)
+   pip install torch==2.7.1+cu118 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
    # Install Wan2.1 requirements after PyTorch so flash-attn can build
    pip install --find-links deps --no-build-isolation -r Wan2.1\requirements.txt
    pip install -e Wan2.1
@@ -78,12 +80,13 @@ Stitch interpolated frames into a video using MoviePy.
 
 Below is a running list of issues we've encountered when building or running PyTorch and CUDA-enabled extensions on Windows using PowerShell. Add new items as needed.
 
-1. **CUDA version mismatch**  
+1. **CUDA version mismatch**
    **Symptom:**
    ```
    RuntimeError: The detected CUDA version (12.9) mismatches the version that was used to compile PyTorch (11.8).
    ```
    **Fix:** Ensure the PyTorch wheel matches your installed CUDA Toolkit or rebuild PyTorch against the desired CUDA version.
+   GPUs with compute capability 6.1 (GTX 1080 Ti) are not supported by the cu12.9 prebuilt wheels, so install the PyTorch `cu118` wheel instead.
 
 2. **Missing Python YAML module**  
    **Symptom:**

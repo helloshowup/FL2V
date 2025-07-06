@@ -24,6 +24,9 @@ RUN python3.10 -m venv venv && \
     pip install flash-attn
 COPY . /workspace/FLF2V
 WORKDIR /workspace/FLF2V
+RUN . /workspace/venv/bin/activate && \
+    pip install -r requirements.txt && \
+    pip install wan  # install FLF2V model library if available
 ENTRYPOINT ["python","main.py"]
 ```
 

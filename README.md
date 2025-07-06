@@ -36,13 +36,14 @@ Generate a 5-second demo video from three key-frame images using the Wan 2.1 FLF
 
 ## Usage
 
+
 ### GUI
 ```bash
 python main.py
 ```
 In the Tkinter window:
 
-- Select exactly three key-frame images.
+- Select exactly three key-frame PNG images.
 - Click **Generate**.
 - Preview the 5-second video.
 - Save to a custom path (default: `sample_output.mp4`).
@@ -53,16 +54,16 @@ Provide exactly three PNG images sized 1024x1024 pixels (start, midpoint and end
 Output
 Default: sample_output.mp4
 
-~5 seconds at 24 fps (configurable via --frame_rate or GUI settings).
+~5 seconds at 24 fps (configurable via config.ini or GUI).
 The output video always has a 1:1 aspect ratio.
 
-Codec and output path can be changed in config.ini or via CLI flags.
+Codec and output path can be changed in config.ini or via the GUI.
 
-Configuration
-Option	CLI flag	Default
-Output path	--output_path PATH	sample_output.mp4
-Frame rate	--frame_rate FPS	24
-Video codec	--video_codec CODEC	libx264
+## Configuration
+Option       Default
+Output path  sample_output.mp4
+Frame rate   24
+Video codec  libx264
 
 Components
 FrameLoader

@@ -1,8 +1,11 @@
 import os
+import sys
 import tempfile
 import unittest
 
 import numpy as np
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from video_stitcher import VideoStitcher
 

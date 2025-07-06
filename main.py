@@ -6,13 +6,7 @@ from gui_controller import GUIController
 def main():
     """Entry point for the FLF2V application."""
     logging.basicConfig(level=logging.INFO)
-    cfg = ConfigAgent(
-        overrides={
-            "output_path": "sample_output.mp4",
-            "frame_rate": 24,
-            "video_codec": "libx264",
-        }
-    )
+    cfg = ConfigAgent()
     gui = GUIController(cfg)
     gui.run()
 

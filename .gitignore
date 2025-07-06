@@ -30,3 +30,10 @@ deps/torchvision*.whl
 /pytorch
 =======
 >>>>>>> Stashed changes
+.vs/ProjectSettings.json
+.vs/slnx.sqlite
+.vs/VSWorkspaceState.json
+New Text Document.txt
+test_cuda.py
+test_resnet.py
+test_resnet.py.txt

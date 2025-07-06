@@ -4,79 +4,44 @@ Generate a 5-second demo video from three key-frame images using the Wan 2.1 FLF
 
 ## Prerequisites
 
-- Windows 11
-- Python 3.10 or later
-- Git (optional)
-- NVIDIA GPU with compute capability 6.1 (e.g., GTX 1080 Ti)
-  - Use the stable CUDA 11.8 wheels (PyTorch 2.7.1+cu118) since cu12.9 wheels do not include this architecture.
-
-## Installation
-
-1. Clone or download the repo and create a virtual environment:
-   ```bash
-   git clone https://github.com/your-username/FLF2V.git
-   cd FLF2V
-   python -m venv venv
-   venv\Scripts\activate
-   ```
-2. Install the base requirements and Wan2.1:
-   ```bash
-   pip install -r requirements.txt
-   git clone https://github.com/Wan-Video/Wan2.1.git
-   # Install PyTorch first (stable CUDA 11.8 wheels)
-   pip install torch==2.7.1+cu118 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-   # Install Wan2.1 requirements after PyTorch so flash-attn can build
-   pip install --find-links deps --no-build-isolation -r Wan2.1\requirements.txt
-   pip install -e Wan2.1
-   ```
-   The `Wan2.1` directory is git-ignored so cloned files won't be committed.
-3. Alternatively, run the bundled script:
-   ```
-   run.bat
-   ```
-   The script creates the venv, installs requirements (including PyTorch and flash-attn) and launches the GUI. It checks the `deps` folder for PyTorch or flash-attn wheels before downloading from PyPI and pauses on error so you can read the message.
-
-## Usage
+- Windows 11 with Virtualization enabled
+- WSL 2
+- Docker Desktop (WSL 2 backend)
+- NVIDIA GPU drivers
 
 
-### GUI
-```bash
-python main.py
+## Installation via Docker
+
+```dockerfile
+FROM nvidia/cuda:11.8.0-cudnn8-runtime-ubuntu22.04
+RUN apt-get update && apt-get install -y python3.10-venv python3-pip git cmake ninja-build
+WORKDIR /workspace
+RUN python3.10 -m venv venv && \
+    . venv/bin/activate && \
+    pip install --upgrade pip && \
+    pip install --index-url https://download.pytorch.org/whl/cu118 \
+        torch==2.7.1+cu118 torchvision==0.15.2+cu118 torchaudio==2.7.2+cu118 && \
+    pip install flash-attn
+COPY . /workspace/FLF2V
+WORKDIR /workspace/FLF2V
+ENTRYPOINT ["python","main.py"]
 ```
-In the Tkinter window:
 
-- Select exactly three key-frame PNG images.
-- Click **Generate**.
-- Preview the 5-second video.
-- Save to a custom path (default: `sample_output.mp4`).
+```bash
+docker build -t flf2v-demo .
+```
 
-## Sample Keyframes
-Provide exactly three PNG images sized 1024x1024 pixels (start, midpoint and end frames) in the `sample_images/` folder. The loader rejects images that are not PNG or not 1024x1024.
+```bash
+docker run --gpus all -v /local/in:/workspace/in -v /local/out:/workspace/out flf2v-demo
+```
+## Legacy: Native Windows build
 
-Output
-Default: sample_output.mp4
+> **Warning**
+> This method often fails on Windows and can take more than two hours. See [issue #1](https://github.com/your-username/FLF2V/issues/1) for details.
 
-~5 seconds at 24 fps (configurable via config.ini or GUI).
-The output video always has a 1:1 aspect ratio.
+Use `run.bat` to build the virtual environment and install all dependencies.
 
-Codec and output path can be changed in config.ini or via the GUI.
-
-## Configuration
-Option       Default
-Output path  sample_output.mp4
-Frame rate   24
-Video codec  libx264
-
-Components
-FrameLoader
-Load and validate exactly three key-frame images.
-
-FLF2VInterpolator
-Interpolate frames with the Wan 2.1 FLF2V model.
-
-VideoStitcher
-Stitch interpolated frames into a video using MoviePy.
-## Installation Troubleshooting
+### Legacy Troubleshooting
 
 Below is a running list of issues we've encountered when building or running PyTorch and CUDA-enabled extensions on Windows using PowerShell. Add new items as needed.
 
@@ -129,4 +94,54 @@ Below is a running list of issues we've encountered when building or running PyT
    ```powershell
    pip install -e . --no-build-isolation
    ```
+## Usage
 
+
+### GUI
+```bash
+python main.py
+```
+In the Tkinter window:
+
+- Select exactly three key-frame PNG images.
+- Click **Generate**.
+- Preview the 5-second video.
+- Save to a custom path (default: `/workspace/out/sample_output.mp4`).
+
+## Sample Keyframes
+Place exactly three 1024x1024 PNG images in `/workspace/in`. The loader rejects images that are not PNG or not 1024x1024.
+
+Output
+Default: `/workspace/out/sample_output.mp4`
+
+~5 seconds at 24 fps (configurable via config.ini or GUI).
+The output video always has a 1:1 aspect ratio.
+
+Codec and output path can be changed in config.ini or via the GUI.
+
+## Configuration
+Option       Default
+Output path  /workspace/out/sample_output.mp4
+Frame rate   24
+Video codec  libx264
+
+Components
+FrameLoader
+Load and validate exactly three key-frame images.
+
+FLF2VInterpolator
+Interpolate frames with the Wan 2.1 FLF2V model.
+
+VideoStitcher
+Stitch interpolated frames into a video using MoviePy.
+
+
+## Verify
+
+```bash
+docker run --rm hello-world
+```
+
+```bash
+docker run --gpus all flf2v-demo python -c "import torch, flash_attn; print(torch.__version__, flash_attn.__version__)"
+```
